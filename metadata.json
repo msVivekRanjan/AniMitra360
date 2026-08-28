@@ -1,0 +1,6 @@
+{
+  "name": "AniMitra 360",
+  "description": "One integrated platform for animal health management, preventive vaccination, deworming, ration planning, veterinary tele-consultation, weather disease alerts, and farmer marketplace.",
+  "requestFramePermissions": ["geolocation"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
