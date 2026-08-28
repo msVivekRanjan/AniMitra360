@@ -84,6 +84,11 @@ const COMMON_VACCINES: Record<SpeciesType, { name: string; target: string; frequ
     { name: 'Classical Swine Fever (CSF)', target: 'Swine Fever (Hog Cholera)', frequency: 'Annual' },
     { name: 'FMD Pig Vaccine', target: 'Foot & Mouth Disease', frequency: 'Every 6 Months' },
   ],
+  Camel: [
+    { name: 'Camel Pox Vaccine', target: 'Camel Pox', frequency: 'Annual' },
+    { name: 'Trypanosomiasis Preventive Ring', target: 'Surra / Trypanosomiasis', frequency: 'Seasonal (Post-Monsoon)' },
+    { name: 'Enterotoxemia Camel Vaccine', target: 'Enterotoxemia', frequency: 'Annual' },
+  ],
 };
 
 export const VaccinationDewormingView: React.FC<VaccinationDewormingViewProps> = ({

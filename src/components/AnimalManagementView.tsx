@@ -81,6 +81,7 @@ const DEFAULT_IMAGE_PRESETS: Record<SpeciesType, string> = {
   Dog: 'https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=600&auto=format&fit=crop&q=80',
   Cat: 'https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=600&auto=format&fit=crop&q=80',
   Pig: 'https://images.unsplash.com/photo-1516467508483-a7212febe31a?w=600&auto=format&fit=crop&q=80',
+  Camel: 'https://images.unsplash.com/photo-1509205477838-a534e43a849f?w=600&auto=format&fit=crop&q=80',
 };
 
 export const AnimalManagementView: React.FC<AnimalManagementViewProps> = ({

@@ -33,6 +33,7 @@ import { WeatherDiseaseAlertsView } from './components/WeatherDiseaseAlertsView'
 import { VeterinarySupportView } from './components/VeterinarySupportView';
 import { MarketplaceView } from './components/MarketplaceView';
 import { FarmerProfileView } from './components/FarmerProfileView';
+import { AyurvedicEthnoVetView } from './components/AyurvedicEthnoVetView';
 import { getTranslation } from './data/translations';
 
 export default function App() {
@@ -350,6 +351,16 @@ export default function App() {
             />
           )}
 
+          {/* 6.5 ETHNOVETERINARY & AYURVEDIC MEDICINE VIEW */}
+          {activeTab === 'ayurveda' && (
+            <AyurvedicEthnoVetView
+              animals={animals}
+              currentLanguage={currentLanguage}
+              currentLocation={farmer.district ? `${farmer.district}, ${farmer.state}` : 'Karnataka, India'}
+              onLogHealthRecord={handleAddHealthRecord}
+            />
+          )}
+
           {/* 7. WEATHER DISEASE ALERTS VIEW */}
           {activeTab === 'weather' && (
             <WeatherDiseaseAlertsView
@@ -445,6 +456,16 @@ export default function App() {
         >
           <span className="text-base">🩺</span>
           <span>{getTranslation(currentLanguage, 'vets')}</span>
+        </button>
+
+        <button
+          onClick={() => setActiveTab('ayurveda')}
+          className={`flex flex-col items-center py-1 px-1.5 rounded-lg text-[10px] font-bold ${
+            activeTab === 'ayurveda' ? 'text-emerald-700 font-extrabold' : 'text-emerald-800/60'
+          }`}
+        >
+          <span className="text-base">🌿</span>
+          <span>{getTranslation(currentLanguage, 'ayurveda', 'Ayurveda')}</span>
         </button>
 
         <button

@@ -13,6 +13,7 @@ import {
   ShieldCheck,
   PhoneCall,
   X,
+  Leaf,
 } from 'lucide-react';
 import { UserRole } from '../types';
 import { getTranslation } from '../data/translations';
@@ -99,6 +100,14 @@ export const Sidebar: React.FC<SidebarProps> = (props) => {
       id: 'nutrition',
       label: getTranslation(lang, 'nutrition'),
       icon: Apple,
+      roles: ['farmer', 'vet', 'admin'],
+    },
+    {
+      id: 'ayurveda',
+      label: getTranslation(lang, 'ayurveda', 'Ayurveda & EVM'),
+      icon: Leaf,
+      badge: 'NDDB',
+      badgeColor: 'bg-emerald-100 text-emerald-800 border border-emerald-200',
       roles: ['farmer', 'vet', 'admin'],
     },
     {

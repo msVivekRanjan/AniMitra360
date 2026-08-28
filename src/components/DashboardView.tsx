@@ -18,6 +18,9 @@ import {
   Droplets,
   Wind,
   Activity,
+  Leaf,
+  Sparkles,
+  ShieldAlert,
 } from 'lucide-react';
 import {
   FarmerProfile,
@@ -29,6 +32,11 @@ import {
   WeatherDiseaseAlert,
   WeatherData,
 } from '../types';
+import {
+  ETHNOVET_REMEDIES,
+  SEASONAL_LOCATION_ALERTS,
+  AYURVEDIC_DAILY_TONICS,
+} from '../data/ayurvedicData';
 import { getTranslation } from '../data/translations';
 
 interface DashboardViewProps {
@@ -275,7 +283,19 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
           </div>
 
           {/* Quick Utility Shortcuts */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
+            <button
+              onClick={() => onNavigate('ayurveda')}
+              className="p-3.5 bg-gradient-to-br from-emerald-50 to-amber-50/40 rounded-2xl border border-emerald-200 hover:border-emerald-400 transition text-left shadow-xs group"
+            >
+              <div className="flex items-center justify-between mb-1">
+                <Leaf className="w-5 h-5 text-emerald-700 group-hover:scale-110 transition-transform" />
+                <span className="text-[9px] font-bold px-1.5 py-0.5 rounded bg-emerald-600 text-white">NDDB</span>
+              </div>
+              <p className="text-xs font-bold text-emerald-950">{getTranslation(lang, 'ayurveda', 'Ayurveda & EVM')}</p>
+              <p className="text-[10px] text-emerald-700">{getTranslation(lang, 'herbalFirstAid', 'Herbal First-Aid & Alerts')}</p>
+            </button>
+
             <button
               onClick={() => onNavigate('nutrition')}
               className="p-3.5 bg-white rounded-2xl border border-emerald-100 hover:border-emerald-300 transition text-left shadow-xs group"
@@ -311,6 +331,66 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
               <p className="text-xs font-bold text-emerald-950">{getTranslation(lang, 'vaccineRegistry')}</p>
               <p className="text-[10px] text-emerald-600">{getTranslation(lang, 'nadcpImmunizations')}</p>
             </button>
+          </div>
+
+          {/* Ethnoveterinary & Ayurvedic Quick Remedy & Disease Alert Hub */}
+          <div className="bg-white rounded-3xl border border-emerald-100 shadow-xs p-6 overflow-hidden">
+            <div className="flex flex-wrap items-center justify-between gap-3 mb-4 pb-3 border-b border-emerald-50">
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-8 rounded-xl bg-emerald-100 flex items-center justify-center text-emerald-700">
+                  <Leaf className="w-4 h-4" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-emerald-950 text-base flex items-center gap-2">
+                    <span>{getTranslation(lang, 'ethnovetTitle', 'Ethnoveterinary & Ayurvedic Medicine')}</span>
+                    <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-amber-100 text-amber-800">
+                      NDDB & ICAR
+                    </span>
+                  </h3>
+                  <p className="text-xs text-emerald-600">
+                    {getTranslation(lang, 'ethnovetDesc', 'Natural, zero-withdrawal herbal therapies for common livestock ailments')}
+                  </p>
+                </div>
+              </div>
+              <button
+                onClick={() => onNavigate('ayurveda')}
+                className="px-3.5 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold transition flex items-center gap-1.5 shadow-xs"
+              >
+                <span>{getTranslation(lang, 'remedyLibrary', 'Explore 20+ Herbal Remedies')}</span>
+                <ChevronRight className="w-3.5 h-3.5" />
+              </button>
+            </div>
+
+            {/* Quick 3-card Herbal First-Aid Row */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5">
+              {ETHNOVET_REMEDIES.slice(0, 3).map((remedy) => (
+                <div
+                  key={remedy.id}
+                  onClick={() => onNavigate('ayurveda')}
+                  className="p-4 rounded-2xl bg-emerald-50/40 border border-emerald-100 hover:border-emerald-300 hover:bg-emerald-50/70 transition cursor-pointer flex flex-col justify-between"
+                >
+                  <div>
+                    <div className="flex items-center justify-between mb-1.5">
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-700 bg-emerald-100/80 px-2 py-0.5 rounded-md">
+                        {remedy.category}
+                      </span>
+                      <span className="text-[10px] font-medium text-emerald-600 flex items-center gap-1">
+                        <Sparkles className="w-3 h-3 text-amber-500" />
+                        {remedy.preparationTimeMinutes} min prep
+                      </span>
+                    </div>
+                    <h4 className="text-xs font-bold text-emerald-950 mb-1">{remedy.name}</h4>
+                    <p className="text-[11px] text-emerald-700/90 line-clamp-2 mb-2">{remedy.hindiName} • {remedy.ailment}</p>
+                  </div>
+                  <div className="pt-2 border-t border-emerald-100/60 flex items-center justify-between text-[11px] text-emerald-600 font-semibold">
+                    <span className="text-emerald-700 font-medium">{remedy.method}</span>
+                    <span className="text-emerald-700 flex items-center gap-0.5">
+                      Recipe <ChevronRight className="w-3 h-3" />
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
 
@@ -358,6 +438,54 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
               <div className="w-32 h-32 border-8 border-white rounded-full"></div>
             </div>
           </div>
+
+          {/* Location & Season-based Disease Alert with Ayurvedic Prevention */}
+          {SEASONAL_LOCATION_ALERTS.length > 0 && (
+            <div className="bg-amber-50/70 border border-amber-200 rounded-3xl p-5 shadow-xs">
+              <div className="flex items-center justify-between mb-3">
+                <div className="flex items-center gap-1.5 text-amber-800">
+                  <ShieldAlert className="w-4 h-4 text-amber-600" />
+                  <span className="text-xs font-bold uppercase tracking-wider">
+                    {getTranslation(lang, 'seasonalRiskAlert', 'Seasonal Disease Risk')}
+                  </span>
+                </div>
+                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-rose-100 text-rose-800 border border-rose-200">
+                  {SEASONAL_LOCATION_ALERTS[0].severity} Risk
+                </span>
+              </div>
+
+              <h4 className="text-sm font-bold text-amber-950 mb-1">
+                {SEASONAL_LOCATION_ALERTS[0].primaryRiskDisease} ({SEASONAL_LOCATION_ALERTS[0].season})
+              </h4>
+              <p className="text-xs text-amber-900/80 mb-1 leading-relaxed">
+                <span className="font-semibold text-amber-950">Zone:</span> {SEASONAL_LOCATION_ALERTS[0].agroClimaticZone}
+              </p>
+              <p className="text-xs text-amber-900/80 mb-3 leading-relaxed">
+                {SEASONAL_LOCATION_ALERTS[0].weatherTriggers}
+              </p>
+
+              <div className="bg-white/90 p-3 rounded-2xl border border-amber-200/80 mb-3">
+                <p className="text-[10px] font-bold uppercase tracking-wider text-emerald-700 mb-1 flex items-center gap-1">
+                  <Leaf className="w-3 h-3 text-emerald-600" />
+                  {getTranslation(lang, 'ayurvedicPrevention', 'Ayurvedic Prevention Protocol')}
+                </p>
+                <p className="text-xs text-emerald-950 font-semibold mb-1">
+                  {SEASONAL_LOCATION_ALERTS[0].ayurvedicPreventionTitle}
+                </p>
+                <p className="text-[11px] text-emerald-900/80 leading-relaxed">
+                  {SEASONAL_LOCATION_ALERTS[0].ayurvedicFormulation.ingredients}
+                </p>
+              </div>
+
+              <button
+                onClick={() => onNavigate('ayurveda')}
+                className="w-full py-2 bg-amber-600 hover:bg-amber-700 text-white rounded-xl text-xs font-bold transition flex items-center justify-center gap-1 shadow-xs"
+              >
+                <span>{getTranslation(lang, 'viewFullTreatment', 'View Ayurvedic Remedy Protocol')}</span>
+                <ChevronRight className="w-3.5 h-3.5" />
+              </button>
+            </div>
+          )}
 
           {/* Daily Ration Plan Card */}
           <div className="bg-white p-6 rounded-3xl border border-emerald-100 shadow-xs">

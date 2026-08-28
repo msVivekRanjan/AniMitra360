@@ -11,7 +11,8 @@ export type SpeciesType =
   | 'Horse'
   | 'Dog'
   | 'Cat'
-  | 'Pig';
+  | 'Pig'
+  | 'Camel';
 
 export type ProductionStage =
   | 'Calf / Kid / Chick'
@@ -352,3 +353,98 @@ export interface AppNotification {
 }
 
 export type NotificationItem = AppNotification;
+
+export type EVMCategory =
+  | 'Mastitis & Udder Care'
+  | 'Wound & Maggot Healing'
+  | 'Bloat & Indigestion'
+  | 'Fever & Respiratory'
+  | 'FMD & Lesions'
+  | 'Diarrhea & Gut Health'
+  | 'Parasite & Tick Control'
+  | 'Fertility & Reproductive'
+  | 'Immunity & General Health'
+  | 'Post-Calving Care'
+  | 'Joint Pain & Lameness';
+
+export type FormulaMethod =
+  | 'Topical Paste (Lep)'
+  | 'Oral Bolus / Ladoo'
+  | 'Drench / Decoction (Kadha)'
+  | 'Herbal Oil / Wash'
+  | 'Fumigation (Dhoopan)'
+  | 'Dry Powder (Churna)';
+
+export type SeasonType =
+  | 'Monsoon (Varsha)'
+  | 'Winter (Shishir / Hemant)'
+  | 'Summer (Grishma)'
+  | 'Post-Monsoon (Sharad)'
+  | 'Spring (Vasant)';
+
+export interface HerbalIngredient {
+  item: string;
+  quantity: string;
+  hindiName?: string;
+  botanicalName?: string;
+  purpose?: string;
+}
+
+export interface EthnoVetRemedy {
+  id: string;
+  name: string;
+  hindiName: string;
+  odiaName?: string;
+  category: EVMCategory;
+  ailment: string;
+  species: SpeciesType[];
+  method: FormulaMethod;
+  preparationTimeMinutes: number;
+  ingredients: HerbalIngredient[];
+  preparationSteps: string[];
+  dosageAndAdministration: string;
+  frequency: string;
+  duration: string;
+  scientificValidation: string;
+  isNddbApproved: boolean;
+  precautions: string[];
+  whenToCallVet: string[];
+  seasonalRelevance?: SeasonType | 'All Seasons';
+  tags: string[];
+}
+
+export interface SeasonalLocationDiseaseAlert {
+  id: string;
+  district: string;
+  state: string;
+  agroClimaticZone: string;
+  season: SeasonType;
+  primaryRiskDisease: string;
+  secondaryDiseases: string[];
+  severity: 'Critical' | 'High' | 'Moderate' | 'Low';
+  weatherTriggers: string;
+  affectedSpecies: SpeciesType[];
+  veterinaryAdvisory: string;
+  ayurvedicPreventionTitle: string;
+  ayurvedicRemedyId?: string;
+  ayurvedicFormulation: {
+    name: string;
+    ingredients: string;
+    preparation: string;
+    administration: string;
+  };
+  vaccinationAdvisory: string;
+}
+
+export interface AyurvedicDailyTonic {
+  id: string;
+  title: string;
+  hindiTitle: string;
+  targetBenefit: string;
+  recommendedFor: string;
+  frequency: string;
+  ingredients: string;
+  preparation: string;
+  benefits: string[];
+}
+
